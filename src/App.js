@@ -16,7 +16,7 @@ const App = () => {
             console.log(data);
             setPlaces(data)
         })
-    }, [] );
+    }, [] ) ;
 
 
     return (
