@@ -1,16 +1,15 @@
-// src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const theme = createTheme(); // Create a default theme
-
-ReactDOM.render(
-  <React.StrictMode>
+const theme = createTheme();
+const container = document.getElementById('root');
+const root = createRoot(container); 
+root.render(
+  
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+
 );
