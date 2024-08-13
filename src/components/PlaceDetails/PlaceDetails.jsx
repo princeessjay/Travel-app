@@ -1,17 +1,20 @@
-import React from 'react'
+import React from 'react';
 import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip } from '@mui/material';
-import { LocationOn } from '@mui/icons-material';
-import { Phone } from '@mui/icons-material';
+import { LocationOn, Phone } from '@mui/icons-material';
 import Rating from '@mui/material/Rating';
-import useStyles from './styles'
-
+import useStyles from './styles';
 
 const PlaceDetails = ({ place, selected, refProp }) => {
-  if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const classes = useStyles();
 
+  React.useEffect(() => {
+    if (selected && refProp?.current) {
+      refProp.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selected, refProp]);
+
   return (
-    <Card elevation={6}>
+    <Card elevation={6} ref={refProp}>
       <CardMedia
         style={{ height: 350 }}
         image={place.photo ? place.photo.images.large.url : 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=600'}
@@ -35,9 +38,9 @@ const PlaceDetails = ({ place, selected, refProp }) => {
             {place.ranking}
           </Typography>
         </Box>
-        {place?.awards?.map((award) => (
-          <Box display="flex" justifyContent="space-between" my={1} alignItems="center">
-            <img src={award.images.small} />
+        {place?.awards?.map((award, index) => (
+          <Box key={index} display="flex" justifyContent="space-between" my={1} alignItems="center">
+            <img src={award.images.small} alt={award.display_name} />
             <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
           </Box>
         ))}
@@ -46,12 +49,12 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         ))}
         {place.address && (
           <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>
-            <LocationOnIcon />{place.address}
+            <LocationOn />{place.address}
           </Typography>
         )}
         {place.phone && (
           <Typography variant="body2" color="textSecondary" className={classes.spacing}>
-            <PhoneIcon /> {place.phone}
+            <Phone /> {place.phone}
           </Typography>
         )}
       </CardContent>

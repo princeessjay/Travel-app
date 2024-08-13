@@ -1,15 +1,28 @@
 import { makeStyles } from '@mui/styles';
 
-
 export default makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1), minWidth: 120, marginBottom: '30px',
+    margin: theme.spacing(1),
+    minWidth: 120,
+    marginBottom: '30px',
+    
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        border: 'none',
+      },
+    },
+    '& .MuiSelect-select': {
+      border: 'none',
+    },
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
   loading: {
-    height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+    height: '600px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     padding: '25px',
@@ -18,6 +31,7 @@ export default makeStyles((theme) => ({
     marginBottom: '30px',
   },
   list: {
-    height: '75vh', overflow: 'auto',
+    height: '75vh',
+    overflow: 'auto',
   },
 }));

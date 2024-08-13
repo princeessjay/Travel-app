@@ -1,29 +1,27 @@
 import axios from 'axios';
 
-const URL = 'https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng';
-
+// Function to fetch places data based on boundary coordinates
 export const getPlacesData = async (type, sw, ne) => {
     try {
         console.log('Sending request to Travel Advisor API...');
         console.log('Southwest:', sw, 'Northeast:', ne);
 
-        const response = await axios.get(URL, {
+        const response = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
             params: {
                 bl_latitude: sw.lat,
                 tr_latitude: ne.lat,
                 bl_longitude: sw.lng,
                 tr_longitude: ne.lng,
-                type: type,
             },
             headers: {
-                'x-rapidapi-key': '82b77ba888msh34e75893c784612p14c766jsn91ad9b2b697e',
+                'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_TRAVEL_API_KEY,
                 'x-rapidapi-host': 'travel-advisor.p.rapidapi.com'
             }
         });
 
         console.log('Full Response:', response); // Log the complete response
 
-        const { data: { data } } = response;
+        const { data } = response.data;
         console.log('Received places data:', data);
         return data;
     } catch (error) {
@@ -32,17 +30,18 @@ export const getPlacesData = async (type, sw, ne) => {
     }
 };
 
+// Function to fetch weather data based on latitude and longitude
 export const getWeatherData = async (lat, lng) => {
     try {
         if (lat && lng) {
             console.log('Sending request to Weather API...');
             console.log('Latitude:', lat, 'Longitude:', lng);
 
-            const response = await axios.get('https://open-weather13.p.rapidapi.com/city/latlon/30.438/-89.1028', {
-                params: { lat, lon: lng },
+            // Correct the endpoint and ensure proper query parameter formatting
+            const response = await axios.get(`'https://open-weather28.p.rapidapi.com/location/22.9012/88.3899/weather?lat=${lat}&lon=${lng}`, {
                 headers: {
-                    'x-rapidapi-key': '82b77ba888msh34e75893c784612p14c766jsn91ad9b2b697e',
-                    'x-rapidapi-host': 'open-weather13.p.rapidapi.com',
+                    'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_WEATHER_API_KEY,
+                    'x-rapidapi-host': 'open-weather28.p.rapidapi.com',
                 },
             });
 
