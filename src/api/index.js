@@ -3,6 +3,7 @@ import axios from 'axios';
 // Function to fetch places data based on boundary coordinates
 export const getPlacesData = async (type, sw, ne) => {
     try {
+        
         console.log('Sending request to Travel Advisor API...');
         console.log('Southwest:', sw, 'Northeast:', ne);
 
