@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 // Function to fetch places data based on boundary coordinates
 export const getPlacesData = async (type, sw, ne) => {
     try {
